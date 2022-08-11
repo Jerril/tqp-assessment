@@ -2,8 +2,12 @@
     "name": "tqp-assessment",
     "version": "1.0.0",
     "description": "Build and deploy a very simple API that does the following",
+    "engines": {
+        "node": "16.14.2"
+    },
     "main": "source/server.ts",
     "scripts": {
+        "start": "node source/server.ts",
         "dev": "nodemon source/server.ts",
         "build": "rm -rf build/ && prettier --write source/ && tsc"
     },
