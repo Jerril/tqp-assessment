@@ -1,0 +1,29 @@
+{
+    "name": "tqp-assessment",
+    "version": "1.0.0",
+    "description": "Build and deploy a very simple API that does the following",
+    "main": "source/server.ts",
+    "scripts": {
+        "dev": "nodemon source/server.ts",
+        "build": "rm -rf build/ && prettier --write source/ && tsc"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Jerril/tqp-assessment.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Jerril/tqp-assessment/issues"
+    },
+    "homepage": "https://github.com/Jerril/tqp-assessment#readme",
+    "devDependencies": {
+        "ts-node": "^10.9.1"
+    },
+    "dependencies": {
+        "@types/express": "^4.17.13",
+        "express": "^4.18.1",
+        "express-rate-limit": "^6.5.1"
+    }
+}
