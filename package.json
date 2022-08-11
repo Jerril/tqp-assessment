@@ -8,7 +8,9 @@
     "main": "source/server.ts",
     "scripts": {
         "start": "node source/server.ts",
-        "dev": "nodemon source/server.ts",
+        "postinstall": "tsc",
+        "watch-node": "nodemon source/server.ts",
+        "watch-ts": "tsc -w",
         "build": "rm -rf build/ && prettier --write source/ && tsc"
     },
     "repository": {
