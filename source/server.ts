@@ -4,6 +4,16 @@ import rateLimit from 'express-rate-limit';
 
 const router: Express = express();
 
+const limiter = rateLimit({
+	windowMs: 1 * 1 * 1000, // 1 sec
+	max: 3, // Limit each IP to 3 requests per `window` (here, per sec)
+	standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+})
+
+// Apply the rate limiting middleware to all requests
+router.use(limiter)
+
 
 /* Routes */
 router.get('/api/age', (req: Request, res: Response, next: NextFunction) => {
