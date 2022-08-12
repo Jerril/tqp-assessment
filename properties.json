@@ -4,5 +4,5 @@
     "email": "dayoolapeju@outlook.com",
     "githubUsername": "jerril",
     "deployedAppURL": "https://tqp-assessment.herokuapp.com/api",
-    "explainer": ""
+    "explainer": "This is a simple REST API with single endpoint /api/age which accepts DOB(dob) as request parameters and calculates the age based on the parameter sent"
 }
