@@ -16,78 +16,73 @@ router.use(limiter);
 
 /* Routes */
 router.get("/api/age", (req: Request, res: Response, next: NextFunction) => {
-  /* 
-        Get DOB
-    */
-  let [birth_date] = (<string>req.query.dob).split(/T| /);
-  let [birth_year, birth_month, birth_day] = birth_date.split("-").map(Number);
+    // Check if paramenter is a valid timestamp
 
-  /* 
-        Get today's date
-    */
-  let today = JSON.stringify(new Date());
-  let [, curr_date_time] = today.split('"');
-  let [curr_date] = curr_date_time.split("T");
-  let [curr_year, curr_month, curr_day] = curr_date.split("-").map(Number);
+    // Get DOB
+    let [birth_date] = (<string>req.query.dob).split(/T| /);
+    let [birth_year, birth_month, birth_day] = birth_date.split("-").map(Number);
 
-  /*
-        Check if DOB is not in the future
-    */
-  if (birth_year > curr_year) {
-    res.status(401).json({
-      message: "Invalid DOB. Birth year is ahead of current year",
-    });
-    return;
-  }
+    // Get today's date
+    let today = JSON.stringify(new Date());
+    let [, curr_date_time] = today.split('"');
+    let [curr_date] = curr_date_time.split("T");
+    let [curr_year, curr_month, curr_day] = curr_date.split("-").map(Number);
 
-  if (birth_year == curr_year && birth_month > curr_month) {
-    res.status(401).json({
-      message: "Invalid DOB. Birth month is ahead of current month",
-    });
-    return;
-  }
-
-  if (
-    birth_year == curr_year &&
-    birth_month == curr_month &&
-    birth_day > curr_day
-  ) {
-    res.status(401).json({
-      message: "Invalid DOB. Birth day is ahead of current day",
-    });
-    return;
-  }
-
-  let age = "";
-  let years = curr_year - birth_year;
-  let months = 0;
-  let days = 0;
-
-  // Get the user's months
-  if (curr_month > birth_month) {
-    months = curr_month - birth_month;
-  } else if (curr_month < birth_month) {
-    years = years - 1;
-    months = 12 - birth_month + curr_month;
-  }
-
-  // Get user's day
-  if (curr_day > birth_day) {
-    days = curr_day - birth_day;
-  } else if (curr_day < birth_day) {
-    if (months == 0) {
-      years = years - 1;
-      months = 11;
-      // days = (month_days - curr_day) + birth_day;
-    } else {
-      months = months - 1;
-      // days = (month_days - curr_day) + birth_day;
+    // Check if DOB is not in the future
+    if (birth_year > curr_year) {
+        res.status(401).json({
+        message: "Invalid DOB. Birth year is ahead of current year",
+        });
+        return;
     }
-  }
 
-  age = `${years}years ${months}months`;
+    if (birth_year == curr_year && birth_month > curr_month) {
+        res.status(401).json({
+        message: "Invalid DOB. Birth month is ahead of current month",
+        });
+        return;
+    }
 
-  res.status(200).json({ age });
+    if (
+        birth_year == curr_year &&
+        birth_month == curr_month &&
+        birth_day > curr_day
+    ) {
+        res.status(401).json({
+        message: "Invalid DOB. Birth day is ahead of current day",
+        });
+        return;
+    }
+
+    let age = "";
+    let years = curr_year - birth_year;
+    let months = 0;
+    let days = 0;
+
+    // Get the user's months
+    if (curr_month > birth_month) {
+        months = curr_month - birth_month;
+    } else if (curr_month < birth_month) {
+        years = years - 1;
+        months = 12 - birth_month + curr_month;
+    }
+
+    // Get user's day
+    if (curr_day > birth_day) {
+        days = curr_day - birth_day;
+    } else if (curr_day < birth_day) {
+        if (months == 0) {
+        years = years - 1;
+        months = 11;
+        } else {
+        months = months - 1;
+        }
+        // days = (curr_month_days - curr_day) + birth_day;
+    }
+
+    age = `${years}years ${months}months`;
+
+    res.status(200).json({ age });
 });
 
 /* Error handling */
