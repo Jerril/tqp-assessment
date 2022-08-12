@@ -18,12 +18,7 @@ const limiter = (0, express_rate_limit_1.default)({
 router.use(limiter);
 /* Routes */
 router.get("/api/age", (req, res, next) => {
-    // Check if request parameter is part of the request
-    if (req.query.dob == null)
-        return res.status(401).json({ message: "dob request parameter required" });
     // Check if paramenter is a valid timestamp
-    res.send(new Date(req.params.dob).getTime());
-    return;
     // Get DOB
     let [birth_date] = req.query.dob.split(/T| /);
     let [birth_year, birth_month, birth_day] = birth_date.split("-").map(Number);
