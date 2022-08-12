@@ -17,7 +17,6 @@ router.use(limiter);
 /* Routes */
 router.get("/api/age", (req: Request, res: Response, next: NextFunction) => {
     // Check if paramenter is a valid timestamp
-
     // Get DOB
     let [birth_date] = (<string>req.query.dob).split(/T| /);
     let [birth_year, birth_month, birth_day] = birth_date.split("-").map(Number);
