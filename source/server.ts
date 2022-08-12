@@ -79,7 +79,7 @@ router.get("/api/age", (req: Request, res: Response, next: NextFunction) => {
     // days = (curr_month_days - curr_day) + birth_day;
   }
 
-  age = `${years}years ${months}months`;
+  age = `${years}years`;
 
   res.status(200).json({ age });
 });
